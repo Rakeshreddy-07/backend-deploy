@@ -6,7 +6,7 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
     }
     parameters{
-        booleanParam(name: 'deploy', defaultValue: true, description: 'select to deploy or not')
+        
         choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'select your env')
         string(name: 'version', description: 'Enter your app version')
 
@@ -33,9 +33,7 @@ pipeline {
 
         
         stage('Deploy'){
-            when {
-                expression { params.deploy }
-            }
+        
             steps{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds-terraform'){
                     sh """
